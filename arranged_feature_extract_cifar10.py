@@ -24,10 +24,15 @@ def _train(args):
         transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
     ])
 
+    input_dir = os.environ.get('SM_CHANNEL_TRAINING')
+    print("input_dir is",input_dir)
+
     train_data = datasets.CIFAR10(
         root='../data', train=True, download=True, transform=transform)
+    print("train_data is",train_data)
     test_data = datasets.CIFAR10(
         root='../data', train=False, download=True, transform=transform)
+    print("test_data is",test_data)
 
     torch.manual_seed(42)  # for reproducible results
     train_loader = DataLoader(train_data, batch_size=100, shuffle=True)
